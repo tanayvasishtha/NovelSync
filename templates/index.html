@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NovelSync - Advanced Carbon Footprint Calculator</title>
     <meta name="description"
         content="The most advanced carbon footprint calculator. AI-powered, with real-time tracking and personalized recommendations.">
@@ -35,7 +35,7 @@
 
         body {
             font-family: 'Radel', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, rgba(248, 252, 249, 0.85) 0%, rgba(255, 255, 255, 0.85) 100%),
+            background: linear-gradient(135deg, rgba(248, 252, 249, 0.75) 0%, rgba(255, 255, 255, 0.75) 100%),
                 url('/static/images/1.jpg');
             background-size: cover;
             background-position: center;
@@ -450,29 +450,195 @@
                 padding: 0 1rem;
             }
 
-            .hero h1 {
-                font-size: 2.5rem;
+            .header-content {
+                padding: 0 1rem;
             }
 
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .hero-stats {
-                flex-direction: column;
-                gap: 1.5rem;
+            .logo {
+                font-size: 1.5rem;
             }
 
             .nav-links {
                 display: none;
             }
 
-            .carbon-total {
-                font-size: 3rem;
+            .hero {
+                padding: 2rem 0 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+                margin: 1rem 0;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.75rem;
+            }
+
+            .main-content {
+                padding: 1.5rem 0;
             }
 
             .card {
-                padding: 1.5rem;
+                padding: 1.25rem;
+                margin-bottom: 1rem;
+            }
+
+            .card h2 {
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
+            }
+
+            .form-control,
+            .form-select {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            .form-label {
+                font-size: 0.9rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .carbon-total {
+                font-size: 2.5rem;
+                margin: 0.75rem 0;
+            }
+
+            .carbon-unit {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .chart-container {
+                height: 250px;
+                margin: 1rem 0;
+            }
+
+            .impact-metrics {
+                margin: 1rem 0;
+                padding: 1rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                margin-bottom: 1rem;
+            }
+
+            .metric-card {
+                padding: 0.75rem;
+            }
+
+            .metric-value {
+                font-size: 1.3rem;
+            }
+
+            .metric-label {
+                font-size: 0.75rem;
+            }
+
+            .impact-summary {
+                flex-direction: column;
+                gap: 0.75rem;
+                padding: 1rem;
+            }
+
+            .impact-level {
+                justify-content: center;
+            }
+
+            .global-comparison {
+                text-align: center;
+            }
+
+            .result-card {
+                padding: 1.25rem;
+                margin-top: 1rem;
+            }
+
+            .suggestion-item {
+                padding: 1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .footer {
+                padding: 2rem 0 1rem;
+                margin-top: 2rem;
+            }
+
+            .footer-content {
+                padding: 0 1rem;
+            }
+
+            .footer-section {
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container-fluid {
+                padding: 0 0.75rem;
+            }
+
+            .header-content {
+                padding: 0 0.75rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .carbon-total {
+                font-size: 2rem;
+            }
+
+            .chart-container {
+                height: 200px;
+            }
+
+            .btn {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            .text-center .btn {
+                display: block;
+                width: 100%;
             }
         }
 
@@ -615,6 +781,61 @@
         .comparison-text {
             font-size: 0.85rem;
             color: var(--dark-gray);
+        }
+
+        /* Mobile-specific optimizations */
+        @media (max-width: 768px) {
+
+            /* Improve touch targets */
+            .btn {
+                min-height: 44px;
+                touch-action: manipulation;
+            }
+
+            .form-control,
+            .form-select {
+                min-height: 44px;
+                touch-action: manipulation;
+            }
+
+            /* Prevent zoom on input focus */
+            input[type="text"],
+            input[type="number"],
+            input[type="email"],
+            select,
+            textarea {
+                font-size: 16px !important;
+            }
+
+            /* Improve scrolling */
+            body {
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Better tap highlights */
+            .nav-link,
+            .btn,
+            .form-check-input {
+                -webkit-tap-highlight-color: rgba(34, 139, 34, 0.2);
+            }
+
+            /* Optimize animations for mobile */
+            .fade-in,
+            .slide-in {
+                animation-duration: 0.4s;
+            }
+
+            /* Improve card shadows for mobile */
+            .card,
+            .result-card {
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .card:hover,
+            .result-card:hover {
+                transform: none;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
         }
     </style>
 </head>
@@ -1100,6 +1321,37 @@
                 }
             });
         });
+
+        // Mobile-specific optimizations
+        if (window.innerWidth <= 768) {
+            // Disable hover effects on mobile
+            document.addEventListener('touchstart', function () { }, { passive: true });
+
+            // Optimize form interactions for mobile
+            const formInputs = document.querySelectorAll('input, select, textarea');
+            formInputs.forEach(input => {
+                input.addEventListener('focus', function () {
+                    // Prevent zoom on iOS
+                    if (window.innerWidth <= 768) {
+                        setTimeout(() => {
+                            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 300);
+                    }
+                });
+            });
+
+            // Optimize button interactions
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('touchstart', function () {
+                    this.style.transform = 'scale(0.98)';
+                });
+
+                button.addEventListener('touchend', function () {
+                    this.style.transform = '';
+                });
+            });
+        }
     </script>
 </body>
 
