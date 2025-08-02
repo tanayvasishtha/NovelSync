@@ -8,7 +8,7 @@
     <meta name="description"
         content="Expert insights on sustainability, carbon footprint reduction, and environmental impact. Learn practical tips and stay informed about climate action.">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Radel:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-green: #228B22;
@@ -26,7 +26,7 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Radel', -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(135deg, rgba(248, 252, 249, 0.85) 0%, rgba(255, 255, 255, 0.85) 100%),
                 url('/static/images/4.jpg');
             background-size: cover;
@@ -117,35 +117,41 @@
 
         .blog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
             margin-bottom: 3rem;
         }
 
         .blog-card {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 252, 249, 0.95) 100%);
             border: 1px solid var(--medium-gray);
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             backdrop-filter: blur(10px);
+            height: 280px;
+            display: flex;
+            flex-direction: column;
         }
 
         .blog-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
 
 
         .blog-content {
-            padding: 1.5rem;
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .blog-category {
             color: var(--primary-green);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -153,37 +159,65 @@
         }
 
         .blog-title {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--dark-gray);
-            margin-bottom: 1rem;
-            line-height: 1.4;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .blog-excerpt {
             color: #666;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 0.85rem;
+            line-height: 1.5;
             margin-bottom: 1rem;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .blog-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #999;
+            margin-top: auto;
         }
 
         .read-more {
             color: var(--primary-green);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .read-more:hover {
             text-decoration: underline;
+        }
+
+        @media (max-width: 1400px) {
+            .blog-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .blog-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
@@ -193,6 +227,11 @@
 
             .blog-hero h1 {
                 font-size: 2.5rem;
+            }
+
+            .blog-card {
+                height: auto;
+                min-height: 200px;
             }
         }
     </style>
