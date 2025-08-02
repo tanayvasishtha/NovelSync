@@ -27,7 +27,11 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, var(--background-green) 0%, var(--white) 100%);
+            background: linear-gradient(135deg, rgba(248, 252, 249, 0.85) 0%, rgba(255, 255, 255, 0.85) 100%),
+                url('/static/images/4.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: var(--dark-gray);
             line-height: 1.6;
             margin: 0;
@@ -127,12 +131,13 @@
         }
 
         .blog-card {
-            background: var(--white);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 252, 249, 0.95) 100%);
             border: 1px solid var(--medium-gray);
             border-radius: 12px;
             overflow: hidden;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
         }
 
         .blog-card:hover {
