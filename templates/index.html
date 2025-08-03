@@ -1224,6 +1224,8 @@
                     document.getElementById('loading').style.display = 'none';
 
                     if (data.success) {
+                        console.log('Calculation data:', data);
+                        console.log('Suggestions:', data.suggestions);
                         displayResults(data);
                         window.lastCalculation = data; // Store for suggestions
                     } else {
@@ -1356,13 +1358,17 @@
 
                 // Get suggestions from the last calculation
                 const lastCalculation = window.lastCalculation;
+                console.log('Last calculation:', lastCalculation);
+                console.log('Suggestions from last calculation:', lastCalculation?.suggestions);
                 if (lastCalculation && lastCalculation.suggestions && lastCalculation.suggestions.length > 0) {
                     setTimeout(() => {
                         suggestionsList.innerHTML = '';
                         lastCalculation.suggestions.forEach((suggestion, index) => {
                             const div = document.createElement('div');
                             div.className = 'suggestion-item';
-                            div.textContent = suggestion;
+                            // Clean the suggestion text to remove any numbering or formatting
+                            const cleanSuggestion = suggestion.replace(/^\d+\.\s*/, '').replace(/\[\d+\]/g, '').trim();
+                            div.textContent = cleanSuggestion;
                             suggestionsList.appendChild(div);
 
                             // Animate each suggestion
@@ -1389,7 +1395,9 @@
                         fallbackSuggestions.forEach((suggestion, index) => {
                             const div = document.createElement('div');
                             div.className = 'suggestion-item';
-                            div.textContent = suggestion;
+                            // Clean the suggestion text to remove any numbering or formatting
+                            const cleanSuggestion = suggestion.replace(/^\d+\.\s*/, '').replace(/\[\d+\]/g, '').trim();
+                            div.textContent = cleanSuggestion;
                             suggestionsList.appendChild(div);
 
                             // Animate each suggestion
