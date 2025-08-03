@@ -352,6 +352,12 @@ def ecobot():
     track_analytics('page_view', session.get('user_id'))
     return render_template('ecobot.html', user=session.get('user'))
 
+@app.route('/about')
+def about():
+    """About page"""
+    track_analytics('page_view', session.get('user_id'))
+    return render_template('about.html', user=session.get('user'))
+
 @app.route('/api/calculate', methods=['POST'])
 def calculate():
     """Calculate carbon footprint from user input"""

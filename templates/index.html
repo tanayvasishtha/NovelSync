@@ -535,64 +535,7 @@
             margin: 0;
         }
 
-        /* About Section */
-        .about-section {
-            background: linear-gradient(135deg, rgba(248, 252, 249, 0.95) 0%, rgba(255, 255, 255, 0.95) 100%);
-            padding: 4rem 0;
-            margin-top: 3rem;
-        }
 
-        .about-section h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--dark-gray);
-            margin-bottom: 1rem;
-            letter-spacing: -0.03em;
-        }
-
-        .about-section .lead {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 3rem;
-            font-weight: 400;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .about-card {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid var(--medium-gray);
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: left;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .about-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-card h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--primary-green);
-            margin-bottom: 1rem;
-            letter-spacing: -0.01em;
-        }
-
-        .about-card p {
-            color: #555;
-            line-height: 1.6;
-            margin: 0;
-        }
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -1002,7 +945,7 @@
             <nav class="nav-links">
                 <a href="/ecobot" class="nav-link">EcoBot</a>
                 <a href="/blog" class="nav-link">Blog</a>
-                <a href="#about" class="nav-link">About</a>
+                <a href="/about" class="nav-link">About</a>
             </nav>
         </div>
     </header>
@@ -1197,39 +1140,7 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h2>About NovelSync</h2>
-                    <p class="lead">Empowering individuals to make a real difference in the fight against climate change.</p>
-                    
-                    <div class="about-content">
-                        <div class="about-card">
-                            <h3>Our Mission</h3>
-                            <p>NovelSync is the world's most advanced carbon tracker, designed to make environmental impact tracking accessible to everyone. We combine cutting-edge AI technology with scientific accuracy to provide personalized insights and actionable recommendations.</p>
-                        </div>
-                        
-                        <div class="about-card">
-                            <h3>What We Do</h3>
-                            <p>Our platform calculates your carbon footprint using industry-standard methodologies, provides AI-powered suggestions for reduction, and helps you track your progress over time. From transportation to diet choices, we cover all aspects of your environmental impact.</p>
-                        </div>
-                        
-                        <div class="about-card">
-                            <h3>Technology</h3>
-                            <p>Powered by advanced AI models and real-time data, NovelSync offers personalized eco-suggestions through our EcoBot AI assistant. Our platform integrates with global databases to provide accurate, location-specific environmental insights.</p>
-                        </div>
-                        
-                        <div class="about-card">
-                            <h3>Join the Movement</h3>
-                            <p>Every small action counts. Start your sustainability journey today and become part of a global community committed to environmental stewardship. Together, we can create a more sustainable future.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Footer -->
     <footer class="footer">
@@ -1244,7 +1155,7 @@
                     <h4>Product</h4>
                     <a href="/ecobot">EcoBot AI</a>
                     <a href="/blog">Blog</a>
-                    <a href="#about">About</a>
+                    <a href="/about">About</a>
                 </div>
                 <div class="col-md-4 footer-section">
                     <h4>Connect</h4>
