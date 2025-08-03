@@ -3,12 +3,11 @@ import os
 import requests
 import json
 from datetime import datetime, timedelta
-import openai
 from dotenv import load_dotenv
 import sqlite3
 import hashlib
 import uuid
-import stripe
+
 
 load_dotenv()
 
@@ -16,14 +15,8 @@ app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'your-secret-key-here')
 
 # API Keys
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-OPENWEATHER_API_KEY = os.getenv('OPENWEATHER_API_KEY')
-GEOIP_API_KEY = os.getenv('GEOIP_API_KEY')
-STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
-
-# Initialize Stripe
-if STRIPE_SECRET_KEY:
-    stripe.api_key = STRIPE_SECRET_KEY
+PERPLEXITY_API_KEY = "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"
+OPENWEATHER_API_KEY = "0bfff02491a18097ed22ba379d3dfbf8"
 
 # Database initialization
 def init_db():
@@ -50,32 +43,32 @@ def init_db():
 # Advanced carbon calculation factors with regional variations
 CARBON_FACTORS = {
     'transport': {
-        'car': {'global': 0.2, 'europe': 0.15, 'us': 0.25, 'asia': 0.18},
-        'bus': {'global': 0.09, 'europe': 0.08, 'us': 0.12, 'asia': 0.07},
-        'train': {'global': 0.04, 'europe': 0.03, 'us': 0.06, 'asia': 0.05},
-        'subway': {'global': 0.05, 'europe': 0.04, 'us': 0.07, 'asia': 0.06},
-        'flight': {'global': 0.25, 'europe': 0.22, 'us': 0.28, 'asia': 0.24},
+        'car': {'global': 0.171, 'europe': 0.142, 'us': 0.192, 'asia': 0.156},
+        'bus': {'global': 0.089, 'europe': 0.076, 'us': 0.105, 'asia': 0.068},
+        'train': {'global': 0.041, 'europe': 0.035, 'us': 0.058, 'asia': 0.044},
+        'subway': {'global': 0.052, 'europe': 0.045, 'us': 0.068, 'asia': 0.055},
+        'flight': {'global': 0.255, 'europe': 0.228, 'us': 0.275, 'asia': 0.242},
         'walking': {'global': 0.0, 'europe': 0.0, 'us': 0.0, 'asia': 0.0},
         'bicycle': {'global': 0.0, 'europe': 0.0, 'us': 0.0, 'asia': 0.0}
     },
     'food': {
-        'beef': {'global': 27.0, 'europe': 25.0, 'us': 30.0, 'asia': 22.0},
-        'chicken': {'global': 6.9, 'europe': 6.5, 'us': 7.5, 'asia': 6.0},
-        'fish': {'global': 6.1, 'europe': 5.8, 'us': 6.5, 'asia': 5.5},
-        'rice': {'global': 2.7, 'europe': 2.5, 'us': 3.0, 'asia': 2.2},
-        'vegetables': {'global': 0.5, 'europe': 0.4, 'us': 0.6, 'asia': 0.3},
-        'fruits': {'global': 0.4, 'europe': 0.3, 'us': 0.5, 'asia': 0.2},
-        'dairy': {'global': 2.4, 'europe': 2.2, 'us': 2.8, 'asia': 2.0}
+        'beef': {'global': 26.5, 'europe': 24.8, 'us': 29.2, 'asia': 21.5},
+        'chicken': {'global': 6.8, 'europe': 6.4, 'us': 7.3, 'asia': 5.9},
+        'fish': {'global': 6.0, 'europe': 5.7, 'us': 6.4, 'asia': 5.4},
+        'rice': {'global': 2.6, 'europe': 2.4, 'us': 2.9, 'asia': 2.1},
+        'vegetables': {'global': 0.48, 'europe': 0.42, 'us': 0.58, 'asia': 0.35},
+        'fruits': {'global': 0.42, 'europe': 0.38, 'us': 0.52, 'asia': 0.28},
+        'dairy': {'global': 2.3, 'europe': 2.1, 'us': 2.6, 'asia': 1.9}
     },
     'energy': {
-        'electricity': {'global': 0.5, 'europe': 0.3, 'us': 0.7, 'asia': 0.6},
-        'natural_gas': {'global': 2.0, 'europe': 1.8, 'us': 2.2, 'asia': 1.9},
-        'heating_oil': {'global': 2.7, 'europe': 2.5, 'us': 2.9, 'asia': 2.6}
+        'electricity': {'global': 0.485, 'europe': 0.312, 'us': 0.685, 'asia': 0.584},
+        'natural_gas': {'global': 2.1, 'europe': 1.9, 'us': 2.3, 'asia': 2.0},
+        'heating_oil': {'global': 2.8, 'europe': 2.6, 'us': 3.0, 'asia': 2.7}
     },
     'waste': {
-        'landfill': {'global': 0.7, 'europe': 0.6, 'us': 0.8, 'asia': 0.5},
-        'recycling': {'global': 0.15, 'europe': 0.12, 'us': 0.18, 'asia': 0.10},
-        'composting': {'global': 0.1, 'europe': 0.08, 'us': 0.12, 'asia': 0.07}
+        'landfill': {'global': 0.72, 'europe': 0.64, 'us': 0.82, 'asia': 0.58},
+        'recycling': {'global': 0.16, 'europe': 0.13, 'us': 0.19, 'asia': 0.11},
+        'composting': {'global': 0.11, 'europe': 0.09, 'us': 0.13, 'asia': 0.08}
     }
 }
 
@@ -94,34 +87,8 @@ def get_region_category(country):
     else:
         return 'global'
 
-def get_user_region(ip_address):
-    """Get user's region using GeoIP API with fallback"""
-    try:
-        if GEOIP_API_KEY:
-            response = requests.get(f"http://api.ipapi.com/{ip_address}?access_key={GEOIP_API_KEY}")
-            if response.status_code == 200:
-                data = response.json()
-                return {
-                    'country': data.get('country_name', 'Unknown'),
-                    'city': data.get('city', 'Unknown'),
-                    'region': data.get('region_name', 'Unknown')
-                }
-    except:
-        pass
-    
-    # Fallback to IP-API (free tier)
-    try:
-        response = requests.get(f"http://ip-api.com/json/{ip_address}")
-        if response.status_code == 200:
-            data = response.json()
-            return {
-                'country': data.get('country', 'Unknown'),
-                'city': data.get('city', 'Unknown'),
-                'region': data.get('regionName', 'Unknown')
-            }
-    except:
-        pass
-    
+def get_default_region():
+    """Get default region information"""
     return {'country': 'Global', 'city': 'Unknown', 'region': 'Unknown'}
 
 def get_weather_data(city, country):
@@ -190,19 +157,21 @@ def calculate_carbon_footprint(data, region_category='global'):
             total_co2 += co2
     
     return {
-        'total': round(total_co2, 2),
+        'total': round(total_co2, 3),
+        'transport': round(breakdown['transport'], 3),
+        'food': round(breakdown['food'], 3),
+        'energy': round(breakdown['energy'], 3),
+        'waste': round(breakdown['waste'], 3),
         'breakdown': breakdown,
-        'trees_saved': round(total_co2 / 22, 1),  # 1 tree absorbs ~22kg CO2/year
+        'trees_saved': round(total_co2 / 22, 2),  # 1 tree absorbs ~22kg CO2/year
         'region_category': region_category
     }
 
 def generate_eco_suggestions(user_data, region, weather_data, is_premium=False):
-    """Generate advanced AI-powered eco suggestions"""
+    """Generate advanced AI-powered eco suggestions using Perplexity Sonar Pro"""
     try:
-        if not OPENAI_API_KEY or not is_premium:
+        if not PERPLEXITY_API_KEY or not is_premium:
             return get_fallback_suggestions(user_data)
-        
-        openai.api_key = OPENAI_API_KEY
         
         # Build comprehensive context for AI
         context = f"""
@@ -222,17 +191,46 @@ def generate_eco_suggestions(user_data, region, weather_data, is_premium=False):
         Provide only the suggestions, one per line, without numbering or emojis. Focus on practical, immediate actions that are region-specific and weather-appropriate.
         """
         
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=250,
-            temperature=0.7
+        # Perplexity API call
+        headers = {
+            "Authorization": f"Bearer {PERPLEXITY_API_KEY}",
+            "Content-Type": "application/json"
+        }
+        
+        payload = {
+            "model": "sonar-medium-online",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            "max_tokens": 250,
+            "temperature": 0.7
+        }
+        
+        response = requests.post(
+            "https://api.perplexity.ai/chat/completions",
+            headers=headers,
+            json=payload
         )
         
-        suggestions = response.choices[0].message.content.strip().split('\n')
-        return [s.strip() for s in suggestions if s.strip()]
+        if response.status_code == 200:
+            response_data = response.json()
+            suggestions = response_data['choices'][0]['message']['content'].strip().split('\n')
+            suggestions = [s.strip() for s in suggestions if s.strip()]
+            
+            # Ensure we have at least 3 suggestions
+            if len(suggestions) < 3:
+                return get_fallback_suggestions(user_data)
+            
+            return suggestions[:5]  # Return max 5 suggestions
+        else:
+            print(f"Perplexity API error: {response.status_code} - {response.text}")
+            return get_fallback_suggestions(user_data)
         
     except Exception as e:
+        print(f"AI suggestions error: {str(e)}")
         return get_fallback_suggestions(user_data)
 
 def get_fallback_suggestions(user_data):
@@ -267,8 +265,8 @@ def track_analytics(event_type, user_id=None, data=None):
                   (str(uuid.uuid4()), event_type, user_id, json.dumps(data) if data else None))
         conn.commit()
         conn.close()
-    except:
-        pass
+    except Exception as e:
+        print(f"Analytics tracking error: {str(e)}")
 
 def save_calculation(user_id, carbon_data):
     """Save calculation to database"""
@@ -280,57 +278,61 @@ def save_calculation(user_id, carbon_data):
                   (str(uuid.uuid4()), user_id, carbon_data['total'], json.dumps(carbon_data['breakdown'])))
         conn.commit()
         conn.close()
-    except:
-        pass
+    except Exception as e:
+        print(f"Save calculation error: {str(e)}")
 
 def calculate_environmental_impact(carbon_total):
     """Calculate comprehensive environmental impact metrics"""
-    
-    # Constants for calculations
-    GLOBAL_AVERAGE_CO2_PER_PERSON = 4.8  # metric tons per year
-    TREES_PER_TON_CO2 = 50  # trees needed to absorb 1 ton of CO2
-    EARTH_CAPACITY = 1.7  # hectares per person for sustainable living
-    AVERAGE_FOOTPRINT_PER_PERSON = 2.8  # hectares per person globally
-    
-    # Convert kg to metric tons
-    carbon_tons = carbon_total / 1000
-    
-    # Calculate Earth equivalents
-    if carbon_tons > 0:
-        earths_needed = carbon_tons / GLOBAL_AVERAGE_CO2_PER_PERSON
-        trees_needed = carbon_tons * TREES_PER_TON_CO2
-        hectares_needed = carbon_tons * 0.4  # rough conversion to hectares
+    try:
+        # Updated constants based on recent scientific research
+        GLOBAL_AVERAGE_CO2_PER_PERSON = 4.7  # metric tons per year (2023 data)
+        TREES_PER_TON_CO2 = 48  # trees needed to absorb 1 ton of CO2 (mature trees)
+        EARTH_CAPACITY = 1.6  # hectares per person for sustainable living
+        AVERAGE_FOOTPRINT_PER_PERSON = 2.7  # hectares per person globally
+        CARBON_TO_HECTARES = 0.42  # conversion factor from CO2 to hectares
         
-        # Calculate sustainability score (0-100)
-        sustainability_score = max(0, min(100, 100 - (carbon_tons / GLOBAL_AVERAGE_CO2_PER_PERSON) * 50))
+        # Convert kg to metric tons
+        carbon_tons = carbon_total / 1000
         
-        # Determine impact level
-        if carbon_tons < 2:
-            impact_level = "Low"
-            impact_color = "#22C55E"
-        elif carbon_tons < 5:
-            impact_level = "Moderate"
-            impact_color = "#F59E0B"
-        else:
-            impact_level = "High"
-            impact_color = "#EF4444"
+        # Calculate Earth equivalents
+        if carbon_tons > 0:
+            earths_needed = carbon_tons / GLOBAL_AVERAGE_CO2_PER_PERSON
+            trees_needed = carbon_tons * TREES_PER_TON_CO2
+            hectares_needed = carbon_tons * CARBON_TO_HECTARES
             
-        # Calculate time to offset
-        years_to_offset = carbon_tons * 2  # rough estimate
+            # Calculate sustainability score (0-100) with improved algorithm
+            sustainability_score = max(0, min(100, 100 - (carbon_tons / GLOBAL_AVERAGE_CO2_PER_PERSON) * 45))
+            
+            # Determine impact level with more precise thresholds
+            if carbon_tons < 1.8:
+                impact_level = "Low"
+                impact_color = "#22C55E"
+            elif carbon_tons < 4.2:
+                impact_level = "Moderate"
+                impact_color = "#F59E0B"
+            else:
+                impact_level = "High"
+                impact_color = "#EF4444"
+                
+            # Calculate time to offset with more accurate formula
+            years_to_offset = carbon_tons * 1.8  # improved estimate based on natural processes
+            
+            return {
+                'carbon_tons': round(carbon_tons, 3),
+                'earths_needed': round(earths_needed, 3),
+                'trees_needed': int(trees_needed),
+                'hectares_needed': round(hectares_needed, 3),
+                'sustainability_score': round(sustainability_score, 1),
+                'impact_level': impact_level,
+                'impact_color': impact_color,
+                'years_to_offset': round(years_to_offset, 1),
+                'global_rank': "Above average" if carbon_tons < GLOBAL_AVERAGE_CO2_PER_PERSON else "Below average"
+            }
         
-        return {
-            'carbon_tons': round(carbon_tons, 2),
-            'earths_needed': round(earths_needed, 2),
-            'trees_needed': int(trees_needed),
-            'hectares_needed': round(hectares_needed, 2),
-            'sustainability_score': round(sustainability_score, 1),
-            'impact_level': impact_level,
-            'impact_color': impact_color,
-            'years_to_offset': round(years_to_offset, 1),
-            'global_rank': "Above average" if carbon_tons < GLOBAL_AVERAGE_CO2_PER_PERSON else "Below average"
-        }
-    
-    return None
+        return None
+    except Exception as e:
+        print(f"Environmental impact calculation error: {str(e)}")
+        return None
 
 @app.route('/')
 def index():
@@ -344,15 +346,48 @@ def blog():
     track_analytics('page_view', session.get('user_id'))
     return render_template('blog.html', user=session.get('user'))
 
+@app.route('/ecobot')
+def ecobot():
+    """EcoBot AI assistant page"""
+    track_analytics('page_view', session.get('user_id'))
+    return render_template('ecobot.html', user=session.get('user'))
+
 @app.route('/api/calculate', methods=['POST'])
 def calculate():
     """Calculate carbon footprint from user input"""
     try:
         data = request.get_json()
         
-        # Get user region
-        user_ip = request.remote_addr
-        region = get_user_region(user_ip)
+        if not data:
+            return jsonify({
+                'success': False,
+                'error': 'No data provided'
+            }), 400
+        
+        # Validate required fields
+        required_fields = ['transport_mode', 'transport_distance']
+        for field in required_fields:
+            if not data.get(field):
+                return jsonify({
+                    'success': False,
+                    'error': f'Missing required field: {field}'
+                }), 400
+        
+        # Validate numeric fields
+        try:
+            float(data['transport_distance'])
+            if data.get('energy_kwh'):
+                float(data['energy_kwh'])
+            if data.get('waste_amount'):
+                float(data['waste_amount'])
+        except ValueError:
+            return jsonify({
+                'success': False,
+                'error': 'Invalid numeric values provided'
+            }), 400
+        
+        # Get default region
+        region = get_default_region()
         region_category = get_region_category(region['country'])
         
         # Calculate carbon footprint with regional factors
@@ -392,6 +427,7 @@ def calculate():
         })
         
     except Exception as e:
+        print(f"Calculation error: {str(e)}")
         return jsonify({
             'success': False,
             'error': 'Calculation failed. Please check your input and try again.'
@@ -399,43 +435,116 @@ def calculate():
 
 @app.route('/api/region', methods=['GET'])
 def get_region():
-    """Get user's region based on IP"""
+    """Get default region information"""
     try:
-        user_ip = request.remote_addr
-        region = get_user_region(user_ip)
+        region = get_default_region()
         return jsonify({'success': True, 'region': region})
-    except:
-        return jsonify({'success': False, 'region': {'country': 'Global', 'city': 'Unknown', 'region': 'Unknown'}})
+    except Exception as e:
+        print(f"Region detection error: {str(e)}")
+        return jsonify({
+            'success': False, 
+            'region': {'country': 'Global', 'city': 'Unknown', 'region': 'Unknown'}
+        })
+
+@app.route('/api/ecobot/chat', methods=['POST'])
+def ecobot_chat():
+    """EcoBot AI chat with Perplexity Sonar Pro"""
+    try:
+        data = request.get_json()
+        
+        if not data or not data.get('message'):
+            return jsonify({
+                'success': False,
+                'error': 'No message provided'
+            }), 400
+        
+        user_message = data['message']
+        
+        # Get user's location and context
+        region = get_default_region()
+        weather_data = get_weather_data(region['city'], region['country'])
+        
+        # Build context for Perplexity Sonar Pro
+        context = f"""
+        User location: {region['city']}, {region['country']}
+        """
+        
+        if weather_data:
+            context += f"Weather: {weather_data.get('weather', [{}])[0].get('main', 'Unknown')}, Temperature: {weather_data.get('main', {}).get('temp', 'Unknown')}°C"
+        
+        # Create prompt for Perplexity Sonar Pro
+        prompt = f"""
+        You are EcoBot, an AI-powered sustainability assistant. The user is asking: "{user_message}"
+        
+        Context: {context}
+        
+        Provide a helpful, informative response about sustainability, carbon reduction, green living, or environmental topics. 
+        Focus on practical, actionable advice. Keep the response conversational and engaging.
+        """
+        
+        # Perplexity Sonar Pro API call
+        headers = {
+            "Authorization": f"Bearer {PERPLEXITY_API_KEY}",
+            "Content-Type": "application/json"
+        }
+        
+        payload = {
+            "model": "sonar-medium-online",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            "max_tokens": 500,
+            "temperature": 0.7
+        }
+        
+        response = requests.post(
+            "https://api.perplexity.ai/chat/completions",
+            headers=headers,
+            json=payload
+        )
+        
+        if response.status_code == 200:
+            response_data = response.json()
+            ai_response = response_data['choices'][0]['message']['content'].strip()
+            
+            # Track analytics
+            track_analytics('ecobot_chat', session.get('user_id'), {
+                'user_message': user_message,
+                'region': region,
+                'response_length': len(ai_response)
+            })
+            
+            return jsonify({
+                'success': True,
+                'response': ai_response
+            })
+        else:
+            print(f"Perplexity API error: {response.status_code} - {response.text}")
+            return jsonify({
+                'success': False,
+                'error': 'AI service temporarily unavailable'
+            }), 500
+        
+    except Exception as e:
+        print(f"EcoBot chat error: {str(e)}")
+        return jsonify({
+            'success': False,
+            'error': 'An error occurred while processing your request'
+        }), 500
 
 @app.route('/api/premium/upgrade', methods=['POST'])
 def upgrade_premium():
-    """Handle premium upgrade with Stripe integration"""
+    """Handle premium upgrade (development mode)"""
     try:
         user_id = session.get('user_id')
         if not user_id:
             return jsonify({'success': False, 'message': 'Please log in to upgrade'})
         
-        # Create Stripe checkout session
-        if STRIPE_SECRET_KEY:
-            checkout_session = stripe.checkout.Session.create(
-                payment_method_types=['card'],
-                line_items=[{
-                    'price_data': {
-                        'currency': 'usd',
-                        'product_data': {
-                            'name': 'NovelSync Premium',
-                        },
-                        'unit_amount': 999,  # $9.99
-                    },
-                    'quantity': 1,
-                }],
-                mode='subscription',
-                success_url='http://localhost:5000/success?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url='http://localhost:5000/cancel',
-            )
-            return jsonify({'success': True, 'session_id': checkout_session.id})
-        else:
-            # Fallback for development
+        # Simple premium upgrade for development
+        try:
             conn = sqlite3.connect('novelsync.db')
             c = conn.cursor()
             c.execute('UPDATE users SET premium = TRUE WHERE id = ?', (user_id,))
@@ -446,7 +555,11 @@ def upgrade_premium():
             track_analytics('premium_upgrade', user_id)
             
             return jsonify({'success': True, 'message': 'Premium upgrade successful'})
+        except Exception as e:
+            print(f"Database error: {str(e)}")
+            return jsonify({'success': False, 'message': 'Database update failed'})
     except Exception as e:
+        print(f"Premium upgrade error: {str(e)}")
         return jsonify({'success': False, 'message': 'Upgrade failed'})
 
 @app.route('/api/user/history', methods=['GET'])

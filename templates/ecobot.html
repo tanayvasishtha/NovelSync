@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoBot - AI-Powered Eco Tips & Carbon Footprint Assistant</title>
+    <meta name="description"
+        content="Get personalized AI-powered eco suggestions using Perplexity Sonar Pro. Reduce your carbon footprint with intelligent, context-aware recommendations.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Professional Font Stack -->
+    <style>
+        /* Radial Font - Regular */
+        @font-face {
+            font-family: 'Radial';
+            src: url('/static/fonts/radialtrial-regular.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Radial Font - Bold */
+        @font-face {
+            font-family: 'Radial';
+            src: url('/static/fonts/radialtrial-bold.otf') format('opentype');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Radial Font - SemiBold */
+        @font-face {
+            font-family: 'Radial';
+            src: url('/static/fonts/radialtrial-semibold.otf') format('opentype');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Radial Font - Heavy */
+        @font-face {
+            font-family: 'Radial';
+            src: url('/static/fonts/radialtrial-heavy.otf') format('opentype');
+            font-weight: 800;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Radial Font - Black */
+        @font-face {
+            font-family: 'Radial';
+            src: url('/static/fonts/radialtrial-black.otf') format('opentype');
+            font-weight: 900;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+    <style>
+        :root {
+            --primary-green: #228B22;
+            --primary-dark: #1a6b1a;
+            --background-green: #F8FCF9;
+            --light-gray: #F5F5F5;
+            --medium-gray: #E8E8E8;
+            --dark-gray: #333333;
+            --white: #FFFFFF;
+            --accent-blue: #0066CC;
+            --success-green: #28A745;
+            --warning-orange: #FF8C00;
+            --error-red: #DC3545;
+            --premium-gold: #FFD700;
+        }
+
+        body {
+            font-family: 'Radial', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, rgba(248, 252, 249, 0.85) 0%, rgba(255, 255, 255, 0.85) 100%),
+                url('/static/images/5.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--dark-gray);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Enhanced Typography for Human-like Appearance */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            border-bottom: 1px solid rgba(232, 232, 232, 0.5);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--dark-gray);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.75rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-green);
+        }
+
+        .ecobot-hero {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(232, 232, 232, 0.3);
+        }
+
+        .ecobot-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+        }
+
+        .ecobot-hero p {
+            font-size: 1rem;
+            color: #777;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .ecobot-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .ai-chat-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(248, 252, 249, 0.92) 100%);
+            border: 1px solid var(--medium-gray);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.875rem;
+            border: 2px solid var(--medium-gray);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .chat-input input:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(34, 139, 34, 0.1);
+            outline: none;
+        }
+
+        .chat-input button {
+            padding: 0.875rem 1.75rem;
+            background: var(--primary-green);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .chat-input button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(34, 139, 34, 0.25);
+        }
+
+        .chat-messages {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            border: 1px solid var(--medium-gray);
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+
+        .message.user {
+            background: var(--primary-green);
+            color: var(--white);
+            margin-left: auto;
+        }
+
+        .message.ai {
+            background: var(--light-gray);
+            color: var(--dark-gray);
+            margin-right: auto;
+        }
+
+        .message-header {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .message-content {
+            line-height: 1.5;
+        }
+
+
+
+        .btn {
+            border-radius: 8px;
+            padding: 0.875rem 1.75rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-primary {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(34, 139, 34, 0.25);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 1rem;
+            color: #666;
+        }
+
+        .loading-spinner {
+            border: 3px solid var(--medium-gray);
+            border-top: 3px solid var(--primary-green);
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 0.5rem;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: #000000;
+            color: var(--white);
+            padding: 2.5rem 0 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .footer-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h4 {
+            color: var(--white);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .footer-section p {
+            color: #BBB;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: #CCC;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.4rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 0.75rem;
+            text-align: center;
+            color: #999;
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .ecobot-hero h1 {
+                font-size: 2rem;
+            }
+
+            .chat-input {
+                flex-direction: column;
+            }
+
+            .ecobot-container {
+                padding: 2rem 1rem;
+            }
+
+            .footer {
+                padding: 2rem 0 1rem;
+                margin-top: 2rem;
+            }
+
+            .footer-content {
+                padding: 0 1rem;
+            }
+
+            .footer-section {
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">NovelSync</a>
+            <nav class="nav-links">
+                <a href="/ecobot" class="nav-link">EcoBot</a>
+                <a href="/blog" class="nav-link">Blog</a>
+                <a href="/#about" class="nav-link">About</a>
+                <a href="/#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- EcoBot Hero -->
+    <section class="ecobot-hero">
+        <div class="container-fluid">
+            <h1>EcoBot AI Assistant</h1>
+            <p>Powered by Perplexity Sonar Medium - Get personalized, intelligent eco suggestions to reduce your carbon
+                footprint. Ask anything about sustainability, climate action, or green living.</p>
+        </div>
+    </section>
+
+    <!-- EcoBot Content -->
+    <section class="ecobot-container">
+        <!-- AI Chat Section -->
+        <div class="ai-chat-section">
+            <h2>Chat with EcoBot AI</h2>
+            <p>Ask EcoBot about sustainability, carbon reduction, green living, or any environmental topic. Get
+                personalized, intelligent responses powered by Perplexity Sonar Medium.</p>
+
+            <div class="chat-input">
+                <input type="text" id="userInput"
+                    placeholder="Ask EcoBot about sustainability, green living, carbon reduction..." />
+                <button onclick="sendMessage()">Send</button>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message ai">
+                    <div class="message-header">EcoBot AI</div>
+                    <div class="message-content">Hello! I'm EcoBot, your AI-powered sustainability assistant. I can help
+                        you with carbon footprint reduction, green living tips, sustainable practices, and environmental
+                        questions. What would you like to know?</div>
+                </div>
+            </div>
+
+            <div id="loading" class="loading" style="display: none;">
+                <div class="loading-spinner"></div>
+                EcoBot is thinking...
+            </div>
+        </div>
+
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="row">
+                <div class="col-md-4 footer-section">
+                    <h4>NovelSync</h4>
+                    <p>The world's most advanced carbon tracker. AI-powered, globally accessible, scientifically
+                        accurate, and designed for real environmental impact.</p>
+                </div>
+                <div class="col-md-4 footer-section">
+                    <h4>Product</h4>
+                    <a href="/ecobot">EcoBot AI</a>
+                    <a href="/blog">Blog</a>
+                    <a href="/#about">About</a>
+                </div>
+                <div class="col-md-4 footer-section">
+                    <h4>Support</h4>
+                    <a href="/#help">Help Center</a>
+                    <a href="/#privacy">Privacy</a>
+                    <a href="/#terms">Terms</a>
+                    <a href="/#contact">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 NovelSync. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            // Add user message
+            addMessage('You', message, 'user');
+            input.value = '';
+
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+
+            // Send to backend
+            fetch('/api/ecobot/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('loading').style.display = 'none';
+
+                    if (data.success) {
+                        addMessage('EcoBot AI', data.response, 'ai');
+                    } else {
+                        addMessage('EcoBot AI', 'Sorry, I encountered an error. Please try again.', 'ai');
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('loading').style.display = 'none';
+                    addMessage('EcoBot AI', 'Sorry, I\'m having trouble connecting. Please try again.', 'ai');
+                });
+        }
+
+        function addMessage(sender, content, type) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+
+            messageDiv.innerHTML = `
+                <div class="message-header">${sender}</div>
+                <div class="message-content">${content}</div>
+            `;
+
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+
+
+        // Enter key to send message
+        document.getElementById('userInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+
+</html>

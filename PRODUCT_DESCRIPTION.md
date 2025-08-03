@@ -57,7 +57,7 @@ Knowledge is the foundation of change. Our comprehensive blog, interactive tutor
 - **Trend Analysis**: Identify patterns and optimize your sustainability strategy
 
 ### **AI-Powered Recommendations**
-- **Personalized Suggestions**: Tailored advice based on your specific circumstances
+- **Personalized Suggestions**: Tailored advice based on your specific circumstances using Perplexity Sonar Pro AI
 - **Regional Optimization**: Location-specific recommendations for maximum impact
 - **Lifestyle Integration**: Practical tips that fit your daily routine
 - **Continuous Learning**: Recommendations improve as you use the platform
