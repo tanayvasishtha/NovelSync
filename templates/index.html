@@ -416,7 +416,7 @@
         }
 
         .suggestion-item {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.95) !important;
             border: 1px solid var(--medium-gray);
             border-radius: 8px;
             padding: 1.25rem;
@@ -425,8 +425,8 @@
             line-height: 1.6;
             backdrop-filter: blur(10px);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            color: var(--dark-gray);
-            font-weight: 500;
+            color: #333 !important;
+            font-weight: 500 !important;
         }
 
         #suggestions {
@@ -1397,6 +1397,12 @@
                             // Clean the suggestion text to remove any numbering or formatting
                             const cleanSuggestion = suggestion.replace(/^\d+\.\s*/, '').replace(/\[\d+\]/g, '').trim();
                             div.textContent = cleanSuggestion;
+                            // Force solid white background for all cards
+                            div.style.background = 'rgba(255, 255, 255, 0.95)';
+                            div.style.color = '#333';
+                            div.style.fontWeight = '500';
+                            div.style.backdropFilter = 'blur(10px)';
+                            div.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.05)';
                             suggestionsList.appendChild(div);
 
                             // Animate each suggestion
@@ -1437,6 +1443,12 @@
                             // Clean the suggestion text to remove any numbering or formatting
                             const cleanSuggestion = suggestion.replace(/^\d+\.\s*/, '').replace(/\[\d+\]/g, '').trim();
                             div.textContent = cleanSuggestion;
+                            // Force solid white background for all cards
+                            div.style.background = 'rgba(255, 255, 255, 0.95)';
+                            div.style.color = '#333';
+                            div.style.fontWeight = '500';
+                            div.style.backdropFilter = 'blur(10px)';
+                            div.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.05)';
                             suggestionsList.appendChild(div);
 
                             // Animate each suggestion
