@@ -198,7 +198,7 @@ def generate_eco_suggestions(user_data, region, weather_data, is_premium=False):
         }
         
         payload = {
-            "model": "sonar-small-online",
+            "model": "sonar-pro",
             "messages": [
                 {
                     "role": "user",
@@ -495,7 +495,7 @@ def ecobot_chat():
         }
         
         payload = {
-            "model": "sonar-small-online",
+            "model": "sonar-pro",
             "messages": [
                 {
                     "role": "user",
