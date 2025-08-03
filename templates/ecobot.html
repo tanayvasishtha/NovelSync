@@ -530,10 +530,16 @@
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${type}`;
 
-            messageDiv.innerHTML = `
-                <div class="message-header">${sender}</div>
-                <div class="message-content">${content}</div>
-            `;
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'message-header';
+            headerDiv.textContent = sender;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.textContent = content;
+            
+            messageDiv.appendChild(headerDiv);
+            messageDiv.appendChild(contentDiv);
 
             messagesDiv.appendChild(messageDiv);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;

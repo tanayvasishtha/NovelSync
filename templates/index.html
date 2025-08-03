@@ -1349,7 +1349,11 @@
 
             if (suggestionsDiv.style.display === 'none') {
                 // Show loading for suggestions
-                suggestionsList.innerHTML = '<div class="loading">Generating personalized suggestions...</div>';
+                suggestionsList.innerHTML = '';
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'loading';
+                loadingDiv.textContent = 'Generating personalized suggestions...';
+                suggestionsList.appendChild(loadingDiv);
                 suggestionsDiv.style.display = 'block';
 
                 // Get suggestions from the last calculation

@@ -12,7 +12,17 @@ import uuid
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY', 'your-secret-key-here')
+app.secret_key = os.getenv('SECRET_KEY') or os.urandom(24).hex()
+
+# Security headers
+@app.after_request
+def add_security_headers(response):
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'DENY'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self' https://api.perplexity.ai https://api.openweathermap.org"
+    return response
 
 # API Keys - Load from environment variables
 PERPLEXITY_API_KEY = os.getenv('PERPLEXITY_API_KEY')
@@ -96,7 +106,7 @@ def get_weather_data(city, country):
     try:
         if OPENWEATHER_API_KEY:
             response = requests.get(
-                f"http://api.openweathermap.org/data/2.5/weather",
+                f"https://api.openweathermap.org/data/2.5/weather",
                 params={
                     'q': f"{city},{country}",
                     'appid': OPENWEATHER_API_KEY,
@@ -464,7 +474,21 @@ def ecobot_chat():
                 'error': 'No message provided'
             }), 400
         
-        user_message = data['message']
+        user_message = data['message'].strip()
+        
+        # Validate message length
+        if len(user_message) > 1000:
+            return jsonify({
+                'success': False,
+                'error': 'Message too long. Please keep it under 1000 characters.'
+            }), 400
+        
+        # Validate message content
+        if not user_message or len(user_message) < 2:
+            return jsonify({
+                'success': False,
+                'error': 'Please provide a valid message.'
+            }), 400
         
         # Get user's location and context
         region = get_default_region()

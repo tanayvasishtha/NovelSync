@@ -1,150 +1,284 @@
-# NovelSync
-
-_No emojis. No gradients. No clutter. Just Swiss precision for everyone's carbon footprint._
+# NovelSync - Advanced Carbon Footprint Tracker
 
 ## Overview
 
-NovelSync is the minimalist global carbon tracker and optimizer. Instantly see your real carbon footprint, region-adjusted, and receive actionable AI-powered green suggestions—all in a flawless Swiss-inspired layout.
+NovelSync is the world's most advanced carbon footprint tracking platform, combining AI-powered insights with scientific accuracy to help individuals and organizations reduce their environmental impact. Built with Flask and integrated with Perplexity AI, NovelSync provides personalized sustainability recommendations based on real-time data and regional factors.
 
-## Features
+## Key Features
 
-- Swiss-design: abundance of white space, outlined components, readable fonts. Absolutely no gradients or purple hues—just honest greens and clear whites.
-- Emoji prohibition: There are absolutely zero emojis in the interface, the code, documentation, or commit messages. This is non-negotiable.
-- Fast regional input: Transport, home energy, food, waste—validated, region-adaptive.
-- Real-time carbon breakdown with error-proof, global-standard formulas.
-- Beautiful, green Chart.js visualizations.
-- AI eco-coach: OpenAI API for location- and habit-specific advice.
-- Robust: App never breaks. If an API is down, user is gently informed and calculations continue with reasonable data. All feedback is plain, direct, and emoji-free.
+### Carbon Footprint Calculation
+- **Multi-category tracking**: Transport, food, energy, and waste
+- **Regional accuracy**: Location-specific carbon factors for precise calculations
+- **Real-time weather integration**: Context-aware suggestions based on local conditions
+- **Scientific methodology**: Based on peer-reviewed environmental research
 
-## Quick Start
+### AI-Powered EcoBot Assistant
+- **Perplexity Sonar Pro integration**: Advanced AI for personalized sustainability advice
+- **Context-aware responses**: Considers location, weather, and user behavior
+- **Interactive chat interface**: Natural conversation about environmental topics
+- **Real-time suggestions**: Immediate actionable recommendations
 
-1. Clone the repository:
+### Advanced Analytics
+- **Environmental impact metrics**: Trees saved, Earth equivalents, sustainability scores
+- **Progress tracking**: Historical data and trend analysis
+- **Goal setting**: Custom carbon reduction targets
+- **Regional comparisons**: Global benchmarking and local insights
+
+### Professional Design
+- **Custom Radial font**: Professional, non-AI aesthetic
+- **Responsive interface**: Optimized for all devices
+- **Accessibility focused**: WCAG compliant design
+- **Performance optimized**: Fast loading and smooth interactions
+
+## Technology Stack
+
+### Backend
+- **Flask**: Python web framework
+- **SQLite**: Lightweight database
+- **Perplexity AI**: Advanced language model integration
+- **OpenWeatherMap API**: Real-time weather data
+- **Gunicorn**: Production WSGI server
+
+### Frontend
+- **HTML5/CSS3**: Modern web standards
+- **JavaScript**: Interactive functionality
+- **Bootstrap 5**: Responsive design framework
+- **Chart.js**: Data visualization
+- **Custom Radial font**: Professional typography
+
+### Security
+- **Environment variables**: Secure API key management
+- **Input validation**: XSS and injection protection
+- **HTTPS enforcement**: Secure data transmission
+- **Content Security Policy**: Advanced security headers
+- **Parameterized queries**: SQL injection prevention
+
+## Installation
+
+### Prerequisites
+- Python 3.8 or higher
+- pip package manager
+- Git version control
+
+### Local Development Setup
+
+1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/novelsync
-   cd novelsync
+   git clone https://github.com/tanayvasishtha/NovelSync.git
+   cd NovelSync
    ```
 
-2. Install dependencies:
+2. **Create virtual environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Configure environment variables:
-   - Copy `env.example` to `.env`
-   - Add your API keys to the `.env` file:
-     - `PERPLEXITY_API_KEY`: Get from [Perplexity AI](https://www.perplexity.ai/)
-     - `OPENWEATHER_API_KEY`: Get from [OpenWeatherMap](https://openweathermap.org/api)
-     - `SECRET_KEY`: Generate a secure random string
+4. **Configure environment variables**
+   ```bash
+   cp env.example .env
+   ```
+   
+   Edit `.env` file with your API keys:
+   ```
+   PERPLEXITY_API_KEY=your_perplexity_api_key_here
+   OPENWEATHER_API_KEY=your_openweather_api_key_here
+   SECRET_KEY=your-secret-key-here
+   FLASK_ENV=development
+   ```
 
-4. Run the application:
+5. **Initialize database**
+   ```bash
+   python -c "from app import init_db; init_db()"
+   ```
+
+6. **Run the application**
    ```bash
    python app.py
    ```
 
-5. Open your browser and visit `http://localhost:5000`
+   The application will be available at `http://localhost:5000`
 
-## Carbon Calculation Methods
+## API Configuration
 
-NovelSync uses scientifically validated carbon factors:
+### Perplexity AI API
+1. Visit [Perplexity AI](https://www.perplexity.ai/)
+2. Sign up for an account
+3. Navigate to API settings
+4. Generate an API key (starts with `pplx-`)
+5. Add to your `.env` file
 
-- **Transport**: Car (0.2 kg CO₂e/km), Bus (0.09), Train (0.04), Subway (0.05), Flight (0.25)
-- **Food**: Beef (27.0), Chicken (6.9), Fish (6.1), Rice (2.7), Vegetables (0.5), Dairy (2.4)
-- **Energy**: Electricity (0.5 kg CO₂e/kWh), Natural Gas (2.0), Heating Oil (2.7)
-- **Waste**: Landfill (0.7), Recycling (0.15), Composting (0.1)
+### OpenWeatherMap API
+1. Visit [OpenWeatherMap](https://openweathermap.org/)
+2. Create a free account
+3. Generate an API key
+4. Add to your `.env` file
 
-All calculations are region-aware and adapt to local factors when available.
+## Deployment
 
-## API Integrations
+### Render Deployment
 
-- **OpenAI API**: Generates personalized, context-aware eco suggestions
-- **OpenWeatherMap API**: Provides weather context for location-specific advice
-- **GeoIP API**: Automatically detects user location for regional calculations
-- **Fallback Systems**: Robust error handling ensures the app works even when APIs are unavailable
+1. **Connect to Render**
+   - Visit [render.com](https://render.com)
+   - Sign up with GitHub account
+   - Click "New +" → "Web Service"
 
-## Swiss Design Principles
+2. **Configure build settings**
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `gunicorn --config gunicorn.conf.py app:app`
+   - **Environment**: Python 3
 
-- Color palette: #228B22 (active green), #E6F4EA (background), #F5F5F5 (light gray), #FFFFFF (white)
-- Typography: Helvetica Neue, Arial, or Inter for maximum legibility
-- Layout: Clean, outlined components with generous white space
-- No gradients, shadows, or decorative elements
-- Responsive design that works on all devices
-- Accessibility-first approach with large touch targets and keyboard navigation
+3. **Set environment variables**
+   - `PERPLEXITY_API_KEY`: Your Perplexity AI key
+   - `OPENWEATHER_API_KEY`: Your OpenWeatherMap key
+   - `FLASK_ENV`: `production`
+   - `SECRET_KEY`: Secure random string
 
-## Development
+4. **Deploy**
+   - Connect your GitHub repository
+   - Render will automatically deploy on push
 
-### Project Structure
+### Alternative Platforms
 
+**Railway**
+- Automatic GitHub integration
+- Free tier available
+- Easy environment variable management
+
+**Heroku**
+- Classic Flask deployment
+- Comprehensive documentation
+- Built-in monitoring
+
+**DigitalOcean App Platform**
+- Scalable infrastructure
+- Global CDN
+- Advanced security features
+
+## Security Features
+
+### Data Protection
+- **Environment variables**: All sensitive data stored securely
+- **Input sanitization**: XSS and injection prevention
+- **HTTPS enforcement**: Secure data transmission
+- **Content Security Policy**: Advanced security headers
+
+### API Security
+- **Rate limiting**: Prevents abuse
+- **Input validation**: Ensures data integrity
+- **Error handling**: Secure error responses
+- **Authentication**: Session-based security
+
+### Database Security
+- **Parameterized queries**: SQL injection prevention
+- **Data encryption**: Sensitive data protection
+- **Access control**: User-based permissions
+- **Backup strategies**: Data recovery procedures
+
+## Architecture
+
+### Application Structure
 ```
-novelsync/
-├── app.py              # Main Flask application
-├── requirements.txt    # Python dependencies
-├── templates/         # HTML templates
-│   └── index.html    # Main application interface
-├── env.example       # Environment variables template
-└── README.md         # This file
+NovelSync/
+├── app.py                 # Main Flask application
+├── requirements.txt       # Python dependencies
+├── gunicorn.conf.py      # Production server config
+├── Dockerfile            # Container configuration
+├── static/               # Static assets
+│   ├── images/           # Application images
+│   └── fonts/            # Custom Radial font
+├── templates/            # HTML templates
+│   ├── index.html        # Main application page
+│   ├── blog.html         # Blog content page
+│   ├── ecobot.html       # AI assistant interface
+│   └── about.html        # About information
+└── novelsync.db          # SQLite database
 ```
 
-### Commit Protocol
+### Core Components
 
-Every major feature must be committed with a short, clear, emoji-free message stating exactly what changed:
+**Carbon Calculation Engine**
+- Regional factor integration
+- Multi-category analysis
+- Scientific methodology
+- Real-time processing
 
-- "Added input validation to all forms"
-- "Completed AI suggestion module"
-- "Finished error handling and fallbacks"
-- "Created visualization dashboard"
+**AI Integration Layer**
+- Perplexity API integration
+- Context-aware responses
+- Natural language processing
+- Personalized recommendations
 
-### Testing
+**Analytics System**
+- User behavior tracking
+- Environmental impact metrics
+- Progress visualization
+- Goal management
 
-The application includes comprehensive error handling and fallback systems. All calculations are validated and bounded to reasonable limits.
-
-## Security
-
-**Important**: Never commit API keys or sensitive information to the repository.
-
-- All API keys are loaded from environment variables
-- The `.env` file is automatically ignored by Git
-- Use `env.example` as a template for required environment variables
-- For production deployment, set environment variables in your hosting platform
-
-### Environment Variables
-
-Required environment variables:
-- `PERPLEXITY_API_KEY`: Your Perplexity AI API key
-- `OPENWEATHER_API_KEY`: Your OpenWeatherMap API key  
-- `SECRET_KEY`: A secure random string for Flask sessions
-- `FLASK_ENV`: Set to `production` for deployment
-
-## Global Reach
-
-NovelSync works worldwide with:
-- Automatic region detection via IP geolocation
-- Fallback to global averages when regional data is unavailable
-- Support for multiple languages and regional preferences
-- Responsive design optimized for all screen sizes
-
-## Performance
-
-- Fast loading times (<2 seconds)
-- Optimized for mobile and desktop
-- Minimal dependencies for maximum reliability
-- Efficient carbon calculations with real-time updates
-
-## License
-
-MIT License - for everyone, everywhere.
+**Security Framework**
+- Input validation
+- XSS protection
+- SQL injection prevention
+- Secure headers
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes following Swiss design principles
-4. Test thoroughly
-5. Submit a pull request with a clear, emoji-free description
+### Development Guidelines
+1. **Fork the repository**
+2. **Create feature branch**: `git checkout -b feature-name`
+3. **Follow coding standards**: PEP 8 for Python
+4. **Add tests**: Ensure functionality
+5. **Submit pull request**: Detailed description
+
+### Code Quality
+- **Type hints**: Python type annotations
+- **Documentation**: Comprehensive docstrings
+- **Error handling**: Graceful failure management
+- **Performance**: Optimized algorithms
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Support
 
-For issues or questions, please create an issue in the repository. All communication should be professional and emoji-free, maintaining the Swiss design philosophy.
+### Documentation
+- **API Reference**: Comprehensive endpoint documentation
+- **User Guide**: Step-by-step usage instructions
+- **Deployment Guide**: Platform-specific setup
+- **Security Guide**: Best practices and recommendations
+
+### Community
+- **GitHub Issues**: Bug reports and feature requests
+- **Discussions**: Community support and ideas
+- **Contributions**: Code improvements and enhancements
+
+## Roadmap
+
+### Planned Features
+- **Mobile application**: Native iOS and Android apps
+- **Advanced analytics**: Machine learning insights
+- **Social features**: Community challenges and sharing
+- **Enterprise version**: Organization-wide tracking
+
+### Technical Improvements
+- **Microservices architecture**: Scalable backend
+- **Real-time updates**: WebSocket integration
+- **Advanced caching**: Redis implementation
+- **Monitoring**: Comprehensive logging and metrics
+
+## Acknowledgments
+
+- **Perplexity AI**: Advanced language model integration
+- **OpenWeatherMap**: Real-time weather data
+- **Scientific community**: Carbon calculation methodologies
+- **Open source contributors**: Community support and improvements
 
 ---
 
-Built for HackForge 2025 with Swiss precision and global impact. 
+**NovelSync** - Empowering individuals to make informed environmental decisions through advanced technology and scientific accuracy. 
