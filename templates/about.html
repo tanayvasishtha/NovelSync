@@ -178,9 +178,8 @@
         }
 
         .about-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
+            display: flex;
+            justify-content: center;
             margin-top: 2rem;
         }
 
@@ -193,6 +192,8 @@
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 600px;
+            width: 100%;
         }
 
         .about-card:hover {
@@ -215,34 +216,7 @@
             font-size: 1rem;
         }
 
-        .about-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
 
-        .stat-card {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid var(--medium-gray);
-            border-radius: 8px;
-            padding: 1.5rem;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-green);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: #666;
-            font-weight: 500;
-        }
 
         /* Footer */
         .footer {
@@ -313,17 +287,11 @@
             }
 
             .about-content {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
+                padding: 0 1rem;
             }
 
             .about-card {
                 padding: 1.5rem;
-            }
-
-            .about-stats {
-                grid-template-columns: 1fr;
-                gap: 1rem;
             }
 
             .footer {
@@ -368,42 +336,8 @@
     <section class="about-container">
         <div class="about-content">
             <div class="about-card">
-                <h3>Our Mission</h3>
-                <p>NovelSync is the world's most advanced carbon tracker, designed to make environmental impact tracking accessible to everyone. We combine cutting-edge AI technology with scientific accuracy to provide personalized insights and actionable recommendations that help individuals reduce their carbon footprint effectively.</p>
-            </div>
-
-            <div class="about-card">
-                <h3>What We Do</h3>
-                <p>Our platform calculates your carbon footprint using industry-standard methodologies, provides AI-powered suggestions for reduction, and helps you track your progress over time. From transportation to diet choices, we cover all aspects of your environmental impact with precision and ease.</p>
-            </div>
-
-            <div class="about-card">
-                <h3>Technology</h3>
-                <p>Powered by advanced AI models and real-time data, NovelSync offers personalized eco-suggestions through our EcoBot AI assistant. Our platform integrates with global databases to provide accurate, location-specific environmental insights that adapt to your lifestyle.</p>
-            </div>
-
-            <div class="about-card">
-                <h3>Join the Movement</h3>
-                <p>Every small action counts. Start your sustainability journey today and become part of a global community committed to environmental stewardship. Together, we can create a more sustainable future for generations to come.</p>
-            </div>
-        </div>
-
-        <div class="about-stats">
-            <div class="stat-card">
-                <div class="stat-number">50K+</div>
-                <div class="stat-label">Active Users Worldwide</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">2.3M</div>
-                <div class="stat-label">kg CO₂ Saved</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">98%</div>
-                <div class="stat-label">Accuracy Rate</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">24/7</div>
-                <div class="stat-label">AI Support</div>
+                <h3>About NovelSync</h3>
+                <p>NovelSync is a carbon footprint calculator designed to help individuals understand and reduce their environmental impact. Our platform provides personalized insights and AI-powered suggestions to make sustainable living more accessible and actionable. We believe that small changes in daily habits can lead to significant environmental benefits when adopted by many people.</p>
             </div>
         </div>
     </section>
