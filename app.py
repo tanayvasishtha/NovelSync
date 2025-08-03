@@ -402,6 +402,78 @@ def blog():
     track_analytics('page_view', session.get('user_id'))
     return render_template('blog.html', user=session.get('user'))
 
+@app.route('/blog/coffee-environmental-impact')
+def blog_coffee():
+    """Blog post about coffee environmental impact"""
+    track_analytics('page_view', session.get('user_id'))
+    return render_template('blog_posts/coffee.html', user=session.get('user'))
+
+@app.route('/blog/smartphone-environmental-impact')
+def blog_smartphone():
+    """Blog post about smartphone environmental impact"""
+    track_analytics('page_view', session.get('user_id'))
+    return render_template('blog_posts/smartphone.html', user=session.get('user'))
+
+@app.route('/blog/electric-vehicles-truth')
+def blog_ev():
+    """Blog post about electric vehicles"""
+    track_analytics('page_view', session.get('user_id'))
+    return render_template('blog_posts/electric_vehicles.html', user=session.get('user'))
+
+@app.route('/blog/diet-climate-impact')
+def blog_diet():
+    """Blog post about diet and climate impact"""
+    track_analytics('page_view', session.get('user_id'))
+    return render_template('blog_posts/diet.html', user=session.get('user'))
+
+@app.route('/blog/renewable-energy-myths')
+def blog_renewable():
+    """Blog post about renewable energy myths"""
+    track_analytics('page_view', session.get('user_id'))
+    return render_template('blog_posts/renewable_energy.html', user=session.get('user'))
+
+@app.route('/blog/plastic-problem')
+def blog_plastic():
+    """Blog post about plastic problem"""
+    track_analytics('page_view', session.get('user_id'))
+    return render_template('blog_posts/plastic.html', user=session.get('user'))
+
+@app.route('/blog/minimalism-greener-life')
+def blog_minimalism():
+    """Blog post about minimalism"""
+    track_analytics('page_view', session.get('user_id'))
+    return render_template('blog_posts/minimalism.html', user=session.get('user'))
+
+@app.route('/blog/eco-friendly-travel')
+def blog_travel():
+    """Blog post about eco-friendly travel"""
+    track_analytics('page_view', session.get('user_id'))
+    return render_template('blog_posts/travel.html', user=session.get('user'))
+
+@app.route('/blog/greenwashing-companies')
+def blog_greenwashing():
+    """Blog post about greenwashing"""
+    track_analytics('page_view', session.get('user_id'))
+    return render_template('blog_posts/greenwashing.html', user=session.get('user'))
+
+@app.route('/blog/carbon-taxes-dont-work')
+def blog_carbon_taxes():
+    """Blog post about carbon taxes"""
+    track_analytics('page_view', session.get('user_id'))
+    return render_template('blog_posts/carbon_taxes.html', user=session.get('user'))
+
+@app.route('/blog/science-climate-change')
+def blog_climate_science():
+    """Blog post about climate change science"""
+    track_analytics('page_view', session.get('user_id'))
+    return render_template('blog_posts/climate_science.html', user=session.get('user'))
+
+@app.route('/blog/world-2050')
+def blog_2050():
+    """Blog post about world in 2050"""
+    track_analytics('page_view', session.get('user_id'))
+    return render_template('blog_posts/world_2050.html', user=session.get('user'))
+
 @app.route('/ecobot')
 def ecobot():
     """EcoBot AI assistant page"""
