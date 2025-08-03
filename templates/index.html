@@ -422,6 +422,30 @@
             padding: 1.25rem;
             margin-bottom: 0.75rem;
             transition: all 0.3s ease;
+            line-height: 1.6;
+        }
+
+        #suggestions {
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-green) var(--medium-gray);
+        }
+
+        #suggestions::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #suggestions::-webkit-scrollbar-track {
+            background: var(--medium-gray);
+            border-radius: 4px;
+        }
+
+        #suggestions::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 4px;
+        }
+
+        #suggestions::-webkit-scrollbar-thumb:hover {
+            background: #16a34a;
         }
 
         .suggestion-item:hover {
@@ -1118,7 +1142,7 @@
                                 <button class="btn btn-outline-primary" id="getSuggestions">Get AI Suggestions</button>
                             </div>
 
-                            <div id="suggestions" style="display: none;">
+                            <div id="suggestions" style="display: none; max-height: 400px; overflow-y: auto;">
                                 <h3>Personalized Eco Suggestions</h3>
                                 <div id="suggestionsList"></div>
                             </div>
@@ -1176,7 +1200,7 @@
         // Initialize GSAP animations
         gsap.from('.hero h1', { duration: 1, y: 50, opacity: 0, ease: 'power3.out' });
         gsap.from('.hero p', { duration: 1, y: 30, opacity: 0, ease: 'power3.out', delay: 0.2 });
-        gsap.from('.hero-stats', { duration: 1, y: 30, opacity: 0, ease: 'power3.out', delay: 0.4 });
+        // Removed hero-stats animation since that element was removed
 
 
 
@@ -1374,6 +1398,17 @@
                             // Animate each suggestion
                             gsap.from(div, { duration: 0.5, x: -20, opacity: 0, delay: index * 0.1 });
                         });
+
+                        // Add scroll indicator if there are many suggestions
+                        if (lastCalculation.suggestions.length > 3) {
+                            const scrollIndicator = document.createElement('div');
+                            scrollIndicator.style.textAlign = 'center';
+                            scrollIndicator.style.padding = '0.5rem';
+                            scrollIndicator.style.color = 'var(--dark-gray)';
+                            scrollIndicator.style.fontSize = '0.85rem';
+                            scrollIndicator.innerHTML = '↓ Scroll to see more suggestions ↓';
+                            suggestionsList.appendChild(scrollIndicator);
+                        }
                     }, 1000);
                 } else {
                     // Enhanced fallback suggestions
@@ -1403,6 +1438,17 @@
                             // Animate each suggestion
                             gsap.from(div, { duration: 0.5, x: -20, opacity: 0, delay: index * 0.1 });
                         });
+
+                        // Add scroll indicator if there are many suggestions
+                        if (fallbackSuggestions.length > 3) {
+                            const scrollIndicator = document.createElement('div');
+                            scrollIndicator.style.textAlign = 'center';
+                            scrollIndicator.style.padding = '0.5rem';
+                            scrollIndicator.style.color = 'var(--dark-gray)';
+                            scrollIndicator.style.fontSize = '0.85rem';
+                            scrollIndicator.innerHTML = '↓ Scroll to see more suggestions ↓';
+                            suggestionsList.appendChild(scrollIndicator);
+                        }
                     }, 1000);
                 }
             } else {
