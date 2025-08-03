@@ -416,13 +416,17 @@
         }
 
         .suggestion-item {
-            background: var(--background-green);
+            background: rgba(255, 255, 255, 0.95);
             border: 1px solid var(--medium-gray);
             border-radius: 8px;
             padding: 1.25rem;
             margin-bottom: 0.75rem;
             transition: all 0.3s ease;
             line-height: 1.6;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            color: var(--dark-gray);
+            font-weight: 500;
         }
 
         #suggestions {
@@ -1142,7 +1146,7 @@
                                 <button class="btn btn-outline-primary" id="getSuggestions">Get AI Suggestions</button>
                             </div>
 
-                            <div id="suggestions" style="display: none; max-height: 400px; overflow-y: auto;">
+                            <div id="suggestions" style="display: none; max-height: 400px; overflow-y: auto; background: rgba(255, 255, 255, 0.98); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--medium-gray); backdrop-filter: blur(10px);">
                                 <h3>Personalized Eco Suggestions</h3>
                                 <div id="suggestionsList"></div>
                             </div>
