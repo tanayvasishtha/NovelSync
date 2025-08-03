@@ -102,13 +102,14 @@
         }
 
         .header {
-            background: rgba(255, 255, 255, 0.98);
-            border-bottom: 1px solid rgba(232, 232, 232, 0.5);
-            padding: 1rem 0;
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.25rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .header-content {
@@ -122,10 +123,10 @@
 
         .logo {
             font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--dark-gray);
+            font-weight: 600;
+            color: var(--white);
             text-decoration: none;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.3px;
         }
 
         .nav-links {
@@ -135,15 +136,18 @@
         }
 
         .nav-link {
-            color: var(--dark-gray);
+            color: var(--white);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 400;
             font-size: 0.9rem;
             transition: color 0.2s ease;
-            letter-spacing: 0.01em;
         }
 
         .nav-link:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .logo:hover {
             color: var(--primary-green);
         }
 
@@ -533,11 +537,11 @@
             const headerDiv = document.createElement('div');
             headerDiv.className = 'message-header';
             headerDiv.textContent = sender;
-            
+
             const contentDiv = document.createElement('div');
             contentDiv.className = 'message-content';
             contentDiv.textContent = content;
-            
+
             messageDiv.appendChild(headerDiv);
             messageDiv.appendChild(contentDiv);
 
