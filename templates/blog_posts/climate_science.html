@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Science Behind Climate Change - NovelSync Blog</title>
+    <meta name="description" content="Understand the scientific evidence behind climate change and what the data actually shows.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #2E8B57;
+            --secondary-green: #3CB371;
+            --dark-gray: #2C3E50;
+            --medium-gray: #95A5A6;
+            --light-gray: #ECF0F1;
+            --white: #FFFFFF;
+        }
+
+        @font-face {
+            font-family: 'Radial';
+            src: url('/static/fonts/radialtrial-regular.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Radial';
+            src: url('/static/fonts/radialtrial-semibold.otf') format('opentype');
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Radial';
+            src: url('/static/fonts/radialtrial-bold.otf') format('opentype');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Radial';
+            src: url('/static/fonts/radialtrial-heavy.otf') format('opentype');
+            font-weight: 800;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Radial';
+            src: url('/static/fonts/radialtrial-black.otf') format('opentype');
+            font-weight: 900;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'Radial', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background-image: url('/static/images/3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--dark-gray);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Enhanced Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.25rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.75rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .blog-post-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .blog-post-header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .blog-post-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+        }
+
+        .blog-post-meta {
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .blog-post-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            line-height: 1.8;
+        }
+
+        .blog-post-content h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin: 2rem 0 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .blog-post-content h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin: 1.5rem 0 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        .blog-post-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            font-weight: 400;
+        }
+
+        .blog-post-content ul, .blog-post-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .blog-post-content li {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+        }
+
+        .back-to-blog {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .back-to-blog a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--primary-green);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-blog a:hover {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.9);
+            color: var(--white);
+            padding: 3rem 0 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .footer-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h4 {
+            color: var(--white);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .footer-section p {
+            color: #BBB;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: #CCC;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.4rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 0.75rem;
+            text-align: center;
+            color: #999;
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .blog-post-container {
+                padding: 0 1rem;
+            }
+
+            .blog-post-header, .blog-post-content {
+                padding: 1.5rem;
+            }
+
+            .blog-post-title {
+                font-size: 2rem;
+            }
+
+            .footer {
+                padding: 2rem 0 1rem;
+                margin-top: 2rem;
+            }
+
+            .footer-content {
+                padding: 0 1rem;
+            }
+
+            .footer-section {
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">NovelSync</a>
+            <nav class="nav-links">
+                <a href="/ecobot" class="nav-link">EcoBot</a>
+                <a href="/blog" class="nav-link">Blog</a>
+                <a href="/about" class="nav-link">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Post Content -->
+    <div class="blog-post-container">
+        <article class="blog-post-header">
+            <h1 class="blog-post-title">The Science Behind Climate Change</h1>
+            <div class="blog-post-meta">
+                <span>Published: March 10, 2025</span> •
+                <span>6 min read</span> •
+                <span>Category: Science</span>
+            </div>
+        </article>
+        
+        <div class="blog-post-content">
+            <p>Climate change isn't a theory. It's a fact backed by decades of scientific research. Here's what the data actually shows about our changing climate and why the scientific consensus is overwhelming.</p>
+
+            <h2>The Greenhouse Effect: How It Works</h2>
+            <p>The Earth's atmosphere acts like a blanket, trapping heat from the sun and keeping our planet warm enough to support life. This natural process is called the greenhouse effect, and it's essential for life on Earth.</p>
+            
+            <p>However, human activities have dramatically increased the concentration of greenhouse gases in the atmosphere, particularly carbon dioxide (CO2), methane (CH4), and nitrous oxide (N2O). These gases trap more heat than the atmosphere would naturally, causing the planet to warm.</p>
+
+            <h2>The Evidence: What the Data Shows</h2>
+            
+            <h3>Rising Global Temperatures</h3>
+            <p>Global average temperatures have increased by about 1.1°C (2°F) since pre-industrial times. This might sound small, but it represents a massive amount of energy being added to the Earth's system.</p>
+
+            <p>The rate of warming has accelerated dramatically in recent decades. The 10 warmest years on record have all occurred since 2010, with 2023 being the warmest year ever recorded.</p>
+
+            <h3>Increasing CO2 Levels</h3>
+            <p>Atmospheric CO2 levels have increased from about 280 parts per million (ppm) before the Industrial Revolution to over 420 ppm today. This is the highest level in at least 800,000 years, and possibly much longer.</p>
+
+            <p>The rate of increase is also unprecedented in Earth's history. CO2 levels are now rising about 100 times faster than they did during the last ice age transition.</p>
+
+            <h3>Melting Ice and Rising Seas</h3>
+            <p>Global sea levels are rising at a rate of about 3.3 millimeters per year, more than twice as fast as the rate during the 20th century. This is primarily due to thermal expansion of ocean water and melting of land-based ice.</p>
+
+            <p>Arctic sea ice is declining at a rate of about 13% per decade, and the Greenland and Antarctic ice sheets are losing mass at an accelerating rate. If all the ice on Greenland melted, global sea levels would rise by about 7 meters (23 feet).</p>
+
+            <h3>Ocean Acidification</h3>
+            <p>The oceans have absorbed about 30% of the CO2 emitted by human activities, which has made seawater more acidic. Ocean pH has decreased by about 0.1 units since pre-industrial times, representing a 30% increase in acidity.</p>
+
+            <p>This acidification threatens marine ecosystems, particularly organisms that build shells or skeletons from calcium carbonate, such as corals, mollusks, and some plankton.</p>
+
+            <h2>The Scientific Consensus</h2>
+            <p>The scientific consensus on climate change is overwhelming. Multiple studies have found that 97% or more of climate scientists agree that human activities are causing global warming.</p>
+
+            <p>This consensus is based on:</p>
+            
+            <ul>
+                <li>Peer-reviewed scientific literature</li>
+                <li>Multiple independent lines of evidence</li>
+                <li>Consistent findings across different research groups</li>
+                <li>Replication of results by independent scientists</li>
+                <li>Convergence of evidence from different fields</li>
+            </ul>
+
+            <h2>Common Misconceptions</h2>
+            
+            <h3>"The Climate Has Always Changed"</h3>
+            <p>While it's true that Earth's climate has changed throughout its history, the current rate of change is unprecedented in human history. Natural climate changes typically occur over thousands or millions of years, not decades.</p>
+
+            <p>The current warming trend is also occurring at a time when natural factors would suggest cooling, making the human influence even more apparent.</p>
+
+            <h3>"Scientists Can't Predict the Weather"</h3>
+            <p>Weather and climate are different things. Weather refers to short-term atmospheric conditions, while climate refers to long-term patterns. Climate scientists don't predict weather—they study long-term trends and patterns.</p>
+
+            <p>Climate models have been remarkably accurate at predicting global temperature trends, and their predictions from decades ago have largely been borne out by observations.</p>
+
+            <h3>"It's Just Natural Variability"</h3>
+            <p>Natural factors like solar activity and volcanic eruptions can influence climate, but they cannot explain the current warming trend. Solar activity has actually decreased slightly over the past 50 years, while temperatures have increased.</p>
+
+            <p>Climate models that include only natural factors cannot reproduce the observed warming, but models that include human activities can.</p>
+
+            <h2>The Impacts of Climate Change</h2>
+            
+            <h3>Extreme Weather Events</h3>
+            <p>Climate change is making extreme weather events more frequent and intense. This includes:</p>
+            
+            <ul>
+                <li>More intense heatwaves</li>
+                <li>Heavier rainfall and flooding</li>
+                <li>More severe droughts</li>
+                <li>Stronger hurricanes and tropical storms</li>
+                <li>More frequent wildfires</li>
+            </ul>
+
+            <h3>Ecosystem Disruption</h3>
+            <p>Climate change is causing species to shift their ranges, alter their behavior, and in some cases, face extinction. Coral reefs are particularly vulnerable to both warming and acidification.</p>
+
+            <h3>Human Health Impacts</h3>
+            <p>Climate change affects human health through:</p>
+            
+            <ul>
+                <li>Increased heat-related illnesses and deaths</li>
+                <li>Worsened air quality</li>
+                <li>Spread of vector-borne diseases</li>
+                <li>Food and water insecurity</li>
+                <li>Mental health impacts from extreme events</li>
+            </ul>
+
+            <h2>What the Future Holds</h2>
+            <p>The extent of future climate change depends largely on our actions today. If we continue on our current path, global temperatures could rise by 4-5°C by the end of the century, with catastrophic consequences.</p>
+
+            <p>However, if we take aggressive action to reduce emissions, we could limit warming to 1.5-2°C, which would still be serious but much more manageable.</p>
+
+            <h3>The 1.5°C Target</h3>
+            <p>The Paris Agreement set a goal of limiting warming to 1.5°C above pre-industrial levels. This target was chosen because beyond this point, the risks of severe impacts increase dramatically.</p>
+
+            <p>To achieve this target, global emissions need to peak by 2025 and decline rapidly thereafter, reaching net-zero by around 2050.</p>
+
+            <h2>What You Can Do</h2>
+            <p>While the scale of the problem can feel overwhelming, individual actions do matter, especially when multiplied by millions of people:</p>
+            
+            <ul>
+                <li>Reduce your carbon footprint through lifestyle changes</li>
+                <li>Support renewable energy and energy efficiency</li>
+                <li>Vote for climate-friendly policies and candidates</li>
+                <li>Support organizations working on climate solutions</li>
+                <li>Educate others about climate science</li>
+                <li>Hold corporations and governments accountable</li>
+            </ul>
+
+            <h2>The Bottom Line</h2>
+            <p>Climate change is real, it's caused by human activities, and it's already having significant impacts. The science is clear and the evidence is overwhelming.</p>
+
+            <p>While the challenge is immense, it's not insurmountable. We have the knowledge and technology to address climate change. What we need is the political will and collective action to implement solutions.</p>
+
+            <p>The decisions we make today will determine the climate our children and grandchildren inherit. The time to act is now.</p>
+
+            <h2>Conclusion</h2>
+            <p>Climate change is not a matter of opinion—it's a matter of physics and chemistry. The greenhouse effect is a well-understood scientific principle, and the evidence that human activities are enhancing this effect is overwhelming.</p>
+
+            <p>While there are still uncertainties about the exact magnitude of future impacts, the basic science is settled. The question is not whether climate change is happening, but how we will respond to it.</p>
+
+            <p>We have a choice: we can continue on our current path and face increasingly severe consequences, or we can take action now to build a more sustainable future. The science is clear. The choice is ours.</p>
+        </div>
+
+        <div class="back-to-blog">
+            <a href="/blog"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="row">
+                <div class="col-md-4 footer-section">
+                    <h4>NovelSync</h4>
+                    <p>The world's most advanced carbon tracker. AI-powered, globally accessible, scientifically
+                        accurate, and designed for real environmental impact.</p>
+                </div>
+                <div class="col-md-4 footer-section">
+                    <h4>Product</h4>
+                    <a href="/ecobot">EcoBot AI</a>
+                    <a href="/blog">Blog</a>
+                    <a href="/about">About</a>
+                </div>
+                <div class="col-md-4 footer-section">
+                    <h4>Connect</h4>
+                    <a href="https://x.com/TanayVasishtha" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-twitter"></i> @TanayVasishtha
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 NovelSync. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

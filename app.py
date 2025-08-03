@@ -448,7 +448,7 @@ def blog_minimalism():
 def blog_travel():
     """Blog post about eco-friendly travel"""
     track_analytics('page_view', session.get('user_id'))
-    return render_template('blog_posts/travel.html', user=session.get('user'))
+    return render_template('blog_posts/eco_travel.html', user=session.get('user'))
 
 @app.route('/blog/greenwashing-companies')
 def blog_greenwashing():
