@@ -28,6 +28,10 @@ def add_security_headers(response):
 PERPLEXITY_API_KEY = os.getenv('PERPLEXITY_API_KEY')
 OPENWEATHER_API_KEY = os.getenv('OPENWEATHER_API_KEY')
 
+# Debug: Check if API keys are loaded
+print(f"Perplexity API key loaded: {'Yes' if PERPLEXITY_API_KEY else 'No'}")
+print(f"OpenWeather API key loaded: {'Yes' if OPENWEATHER_API_KEY else 'No'}")
+
 # Database initialization
 def init_db():
     conn = sqlite3.connect('novelsync.db')
@@ -181,6 +185,7 @@ def generate_eco_suggestions(user_data, region, weather_data, is_premium=False):
     """Generate advanced AI-powered eco suggestions using Perplexity Sonar Pro"""
     try:
         if not PERPLEXITY_API_KEY:
+            print("Perplexity API key not found, using fallback suggestions")
             return get_fallback_suggestions(user_data)
         
         # Build comprehensive context for AI
@@ -230,8 +235,11 @@ def generate_eco_suggestions(user_data, region, weather_data, is_premium=False):
             suggestions = response_data['choices'][0]['message']['content'].strip().split('\n')
             suggestions = [s.strip() for s in suggestions if s.strip()]
             
+            print(f"AI suggestions generated: {len(suggestions)} suggestions")
+            
             # Ensure we have at least 3 suggestions
             if len(suggestions) < 3:
+                print("Not enough AI suggestions, using fallback")
                 return get_fallback_suggestions(user_data)
             
             return suggestions[:5]  # Return max 5 suggestions
@@ -245,6 +253,7 @@ def generate_eco_suggestions(user_data, region, weather_data, is_premium=False):
 
 def get_fallback_suggestions(user_data):
     """Enhanced fallback suggestions with comprehensive coverage"""
+    print("Using fallback suggestions")
     suggestions = []
     
     # Transport suggestions
@@ -289,11 +298,11 @@ def get_fallback_suggestions(user_data):
     
     # General lifestyle suggestions
     suggestions.extend([
-        "Support businesses that prioritize sustainability",
-        "Educate yourself and others about climate change",
-        "Participate in local environmental initiatives",
-        "Consider carbon offset programs for unavoidable emissions",
-        "Track your progress and set monthly reduction goals"
+        "Support businesses that prioritize sustainability and environmental responsibility",
+        "Educate yourself and others about climate change and its local impacts",
+        "Participate in local environmental initiatives and community clean-up events",
+        "Consider carbon offset programs for unavoidable emissions from essential activities",
+        "Track your progress and set monthly reduction goals to maintain motivation"
     ])
     
     # Return unique suggestions, prioritizing based on user's highest impact areas
