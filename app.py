@@ -436,7 +436,7 @@ def blog_renewable():
 def blog_plastic():
     """Blog post about plastic problem"""
     track_analytics('page_view', session.get('user_id'))
-    return render_template('blog_posts/plastic.html', user=session.get('user'))
+    return render_template('blog_posts/plastic_problem.html', user=session.get('user'))
 
 @app.route('/blog/minimalism-greener-life')
 def blog_minimalism():
