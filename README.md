@@ -29,12 +29,12 @@ NovelSync is the minimalist global carbon tracker and optimizer. Instantly see y
    pip install -r requirements.txt
    ```
 
-3. Configure API keys:
+3. Configure environment variables:
    - Copy `env.example` to `.env`
    - Add your API keys to the `.env` file:
-     - OpenAI API key for AI suggestions
-     - OpenWeatherMap API key for weather context
-     - GeoIP API key for region detection (optional)
+     - `PERPLEXITY_API_KEY`: Get from [Perplexity AI](https://www.perplexity.ai/)
+     - `OPENWEATHER_API_KEY`: Get from [OpenWeatherMap](https://openweathermap.org/api)
+     - `SECRET_KEY`: Generate a secure random string
 
 4. Run the application:
    ```bash
@@ -96,6 +96,23 @@ Every major feature must be committed with a short, clear, emoji-free message st
 ### Testing
 
 The application includes comprehensive error handling and fallback systems. All calculations are validated and bounded to reasonable limits.
+
+## Security
+
+**Important**: Never commit API keys or sensitive information to the repository.
+
+- All API keys are loaded from environment variables
+- The `.env` file is automatically ignored by Git
+- Use `env.example` as a template for required environment variables
+- For production deployment, set environment variables in your hosting platform
+
+### Environment Variables
+
+Required environment variables:
+- `PERPLEXITY_API_KEY`: Your Perplexity AI API key
+- `OPENWEATHER_API_KEY`: Your OpenWeatherMap API key  
+- `SECRET_KEY`: A secure random string for Flask sessions
+- `FLASK_ENV`: Set to `production` for deployment
 
 ## Global Reach
 

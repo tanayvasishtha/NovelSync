@@ -14,9 +14,9 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'your-secret-key-here')
 
-# API Keys
-PERPLEXITY_API_KEY = "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"
-OPENWEATHER_API_KEY = "0bfff02491a18097ed22ba379d3dfbf8"
+# API Keys - Load from environment variables
+PERPLEXITY_API_KEY = os.getenv('PERPLEXITY_API_KEY')
+OPENWEATHER_API_KEY = os.getenv('OPENWEATHER_API_KEY')
 
 # Database initialization
 def init_db():
