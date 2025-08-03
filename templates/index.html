@@ -1358,7 +1358,7 @@
 
                 // Get suggestions from the last calculation
                 const lastCalculation = window.lastCalculation;
-                if (lastCalculation && lastCalculation.suggestions) {
+                if (lastCalculation && lastCalculation.suggestions && lastCalculation.suggestions.length > 0) {
                     setTimeout(() => {
                         suggestionsList.innerHTML = '';
                         lastCalculation.suggestions.forEach((suggestion, index) => {
@@ -1372,13 +1372,18 @@
                         });
                     }, 1000);
                 } else {
-                    // Fallback suggestions
+                    // Enhanced fallback suggestions
                     const fallbackSuggestions = [
-                        'Consider using public transportation for your daily commute',
+                        'Consider using public transportation or carpooling for your daily commute',
+                        'Explore electric vehicle options for your next car purchase',
                         'Try incorporating more plant-based meals into your diet',
+                        'Support local farmers and reduce food transportation emissions',
                         'Switch to energy-efficient appliances and turn off unused electronics',
+                        'Consider installing solar panels or switching to renewable energy',
                         'Start composting organic waste and reduce single-use plastics',
-                        'Support local farmers and reduce food transportation emissions'
+                        'Implement a zero-waste lifestyle with reusable containers',
+                        'Try walking or cycling for short trips under 2 miles',
+                        'Reduce food waste by planning meals and using leftovers'
                     ];
 
                     setTimeout(() => {

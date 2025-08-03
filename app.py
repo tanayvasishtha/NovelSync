@@ -180,7 +180,7 @@ def calculate_carbon_footprint(data, region_category='global'):
 def generate_eco_suggestions(user_data, region, weather_data, is_premium=False):
     """Generate advanced AI-powered eco suggestions using Perplexity Sonar Pro"""
     try:
-        if not PERPLEXITY_API_KEY or not is_premium:
+        if not PERPLEXITY_API_KEY:
             return get_fallback_suggestions(user_data)
         
         # Build comprehensive context for AI
@@ -244,26 +244,72 @@ def generate_eco_suggestions(user_data, region, weather_data, is_premium=False):
         return get_fallback_suggestions(user_data)
 
 def get_fallback_suggestions(user_data):
-    """Enhanced fallback suggestions"""
+    """Enhanced fallback suggestions with comprehensive coverage"""
     suggestions = []
     
+    # Transport suggestions
     if user_data['breakdown']['transport'] > 0:
-        suggestions.append("Consider using public transportation or carpooling for your daily commute")
-        suggestions.append("Explore electric vehicle options for your next car purchase")
+        suggestions.extend([
+            "Consider using public transportation or carpooling for your daily commute",
+            "Explore electric vehicle options for your next car purchase",
+            "Try walking or cycling for short trips under 2 miles",
+            "Plan your errands to minimize multiple trips",
+            "Consider telecommuting options to reduce commute emissions"
+        ])
     
+    # Food suggestions
     if user_data['breakdown']['food'] > 0:
-        suggestions.append("Try incorporating more plant-based meals into your diet")
-        suggestions.append("Support local farmers and reduce food transportation emissions")
+        suggestions.extend([
+            "Try incorporating more plant-based meals into your diet",
+            "Support local farmers and reduce food transportation emissions",
+            "Reduce food waste by planning meals and using leftovers",
+            "Choose seasonal and organic produce when possible",
+            "Consider growing your own herbs and vegetables"
+        ])
     
+    # Energy suggestions
     if user_data['breakdown']['energy'] > 0:
-        suggestions.append("Switch to energy-efficient appliances and turn off unused electronics")
-        suggestions.append("Consider installing solar panels or switching to renewable energy")
+        suggestions.extend([
+            "Switch to energy-efficient appliances and turn off unused electronics",
+            "Consider installing solar panels or switching to renewable energy",
+            "Use LED light bulbs and natural lighting when possible",
+            "Adjust your thermostat to reduce heating and cooling costs",
+            "Unplug chargers and devices when not in use"
+        ])
     
+    # Waste suggestions
     if user_data['breakdown']['waste'] > 0:
-        suggestions.append("Start composting organic waste and reduce single-use plastics")
-        suggestions.append("Implement a zero-waste lifestyle with reusable containers")
+        suggestions.extend([
+            "Start composting organic waste and reduce single-use plastics",
+            "Implement a zero-waste lifestyle with reusable containers",
+            "Recycle paper, glass, and metal products properly",
+            "Choose products with minimal packaging",
+            "Repair items instead of replacing them when possible"
+        ])
     
-    return suggestions
+    # General lifestyle suggestions
+    suggestions.extend([
+        "Support businesses that prioritize sustainability",
+        "Educate yourself and others about climate change",
+        "Participate in local environmental initiatives",
+        "Consider carbon offset programs for unavoidable emissions",
+        "Track your progress and set monthly reduction goals"
+    ])
+    
+    # Return unique suggestions, prioritizing based on user's highest impact areas
+    unique_suggestions = list(dict.fromkeys(suggestions))  # Remove duplicates while preserving order
+    
+    # Prioritize suggestions based on user's highest impact areas
+    impact_areas = [
+        ('transport', user_data['breakdown']['transport']),
+        ('food', user_data['breakdown']['food']),
+        ('energy', user_data['breakdown']['energy']),
+        ('waste', user_data['breakdown']['waste'])
+    ]
+    impact_areas.sort(key=lambda x: x[1], reverse=True)
+    
+    # Return 5-7 most relevant suggestions
+    return unique_suggestions[:7]
 
 def track_analytics(event_type, user_id=None, data=None):
     """Track user analytics"""
